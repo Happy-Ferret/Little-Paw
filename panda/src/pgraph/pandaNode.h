@@ -125,11 +125,13 @@ PUBLISHED:
   INLINE int get_num_parents(Thread *current_thread = Thread::get_current_thread()) const;
   INLINE PandaNode *get_parent(int n, Thread *current_thread = Thread::get_current_thread()) const;
   INLINE int find_parent(PandaNode *node, Thread *current_thread = Thread::get_current_thread()) const;
+  MAKE_SEQ(get_parents, get_num_parents, get_parent);
 
   INLINE int get_num_children(Thread *current_thread = Thread::get_current_thread()) const;
   INLINE PandaNode *get_child(int n, Thread *current_thread = Thread::get_current_thread()) const;
   INLINE int get_child_sort(int n, Thread *current_thread = Thread::get_current_thread()) const;
   INLINE int find_child(PandaNode *node, Thread *current_thread = Thread::get_current_thread()) const;
+  MAKE_SEQ(get_children, get_num_children, get_child);
 
   int count_num_descendants() const;
 
@@ -153,6 +155,7 @@ PUBLISHED:
   INLINE PandaNode *get_stashed(int n, Thread *current_thread = Thread::get_current_thread()) const;
   INLINE int get_stashed_sort(int n, Thread *current_thread = Thread::get_current_thread()) const;
   INLINE int find_stashed(PandaNode *node, Thread *current_thread = Thread::get_current_thread()) const;
+  MAKE_SEQ(get_stashed, get_num_stashed, get_stashed);
 
   void add_stashed(PandaNode *child_node, int sort = 0, Thread *current_thread = Thread::get_current_thread());
   void remove_stashed(int child_index, Thread *current_thread = Thread::get_current_thread());
@@ -800,7 +803,7 @@ public:
   INLINE ~PandaNodePipelineReader();
   ALLOC_DELETED_CHAIN(PandaNodePipelineReader);
 
-  INLINE const PandaNode *get_object() const;
+  INLINE const PandaNode *get_node() const;
   INLINE Thread *get_current_thread() const;
 
   INLINE void release();
@@ -810,7 +813,7 @@ public:
   INLINE void compose_draw_mask(DrawMask &running_draw_mask) const;
   INLINE bool compare_draw_mask(DrawMask running_draw_mask,
                                 DrawMask camera_mask) const;
-  
+
   INLINE int get_num_parents() const;
   INLINE PandaNode *get_parent(int n) const;
   INLINE int find_parent(PandaNode *node) const;
@@ -845,7 +848,7 @@ public:
   INLINE PandaNode::Parents get_parents() const;
 
 private:
-  const PandaNode *_object;
+  const PandaNode *_node;
   Thread *_current_thread;
 
   const PandaNode::CData *_cdata;
